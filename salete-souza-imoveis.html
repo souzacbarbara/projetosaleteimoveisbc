@@ -1,0 +1,2496 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salete Souza Imóveis — Entregáveis</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --black-soft: #111111;
+    --black-card: #161616;
+    --black-border: #222222;
+    --gold: #C9922A;
+    --gold-light: #E0B050;
+    --gold-pale: #f5e6c8;
+    --cream: #f9f4ec;
+    --text-main: #e8e0d5;
+    --text-muted: #9a9090;
+    --text-dim: #666060;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--text-main);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: .4;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    padding: 80px 40px 60px;
+    text-align: center;
+    border-bottom: 1px solid var(--black-border);
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .hero-eyebrow {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .hero-sub {
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-top: 14px;
+  }
+
+  .hero-ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin: 24px auto 0;
+  }
+
+  .hero-ornament-line {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold));
+  }
+
+  .hero-ornament-line:last-child {
+    background: linear-gradient(90deg, var(--gold), transparent);
+  }
+
+  .hero-ornament-diamond {
+    width: 6px;
+    height: 6px;
+    background: var(--gold);
+    transform: rotate(45deg);
+  }
+
+  /* ── NAV ── */
+  .nav-wrapper {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,10,10,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--black-border);
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    overflow-x: auto;
+    padding: 0 20px;
+    scrollbar-width: none;
+  }
+
+  .nav::-webkit-scrollbar { display: none; }
+
+  .nav-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 18px 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    white-space: nowrap;
+    position: relative;
+    transition: color 0.3s ease;
+  }
+
+  .nav-btn::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: var(--gold);
+    transition: width 0.3s ease;
+  }
+
+  .nav-btn:hover { color: var(--text-main); }
+  .nav-btn.active { color: var(--gold); }
+  .nav-btn.active::after { width: 60%; }
+
+  /* ── SECTIONS ── */
+  .section {
+    display: none;
+    animation: fadeIn 0.4s ease;
+  }
+
+  .section.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── CONTAINER ── */
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 60px 30px;
+  }
+
+  /* ── SECTION HEADER ── */
+  .section-header {
+    margin-bottom: 48px;
+  }
+
+  .section-tag {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 300;
+    color: #fff;
+    line-height: 1.15;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .section-desc {
+    margin-top: 16px;
+    font-size: 13px;
+    color: var(--text-muted);
+    max-width: 560px;
+    line-height: 1.8;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    margin: 40px 0;
+    width: 180px;
+  }
+
+  /* ── ANÁLISE — CARDS ── */
+  .positive-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+
+  .positive-card {
+    background: var(--black-card);
+    border: 1px solid var(--black-border);
+    border-top: 2px solid var(--gold);
+    padding: 24px;
+    border-radius: 2px;
+  }
+
+  .positive-card .card-icon {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .positive-card .card-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .positive-card p {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  /* ── ANALYSIS PROBLEM ITEMS ── */
+  .problem-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .problem-item {
+    background: var(--black-card);
+    border: 1px solid var(--black-border);
+    border-left: 3px solid var(--gold);
+    padding: 24px 28px;
+    border-radius: 2px;
+  }
+
+  .problem-item .problem-number {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .problem-item .problem-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+
+  .problem-item .problem-text {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.75;
+    margin-bottom: 14px;
+  }
+
+  .fix-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--gold-light);
+  }
+
+  .fix-badge::before {
+    content: '→';
+    color: var(--gold);
+  }
+
+  .fix-text {
+    font-size: 13px;
+    color: var(--text-main);
+    line-height: 1.7;
+    margin-top: 4px;
+    padding-left: 16px;
+    border-left: 1px solid var(--black-border);
+  }
+
+  /* ── BIO SUGGESTION ── */
+  .bio-box {
+    background: var(--black-card);
+    border: 1px solid var(--gold);
+    padding: 28px;
+    margin-top: 16px;
+    position: relative;
+  }
+
+  .bio-box::before {
+    content: 'Sugestão de Nova Bio';
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    background: var(--black-card);
+    padding: 0 10px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .bio-box pre {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    line-height: 1.9;
+    color: var(--text-main);
+    white-space: pre-wrap;
+  }
+
+  /* ── DESTAQUES GRID ── */
+  .destaques-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  .destaque-item {
+    background: var(--black-card);
+    border: 1px solid var(--black-border);
+    padding: 20px 16px;
+    text-align: center;
+    transition: border-color 0.3s;
+  }
+
+  .destaque-item:hover { border-color: var(--gold); }
+
+  .destaque-item .dest-icon { font-size: 24px; margin-bottom: 8px; }
+
+  .destaque-item .dest-name {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* ── STORIES SECTION ── */
+  .week-block {
+    margin-bottom: 48px;
+  }
+
+  .week-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .week-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 300;
+    color: var(--black-border);
+    line-height: 1;
+  }
+
+  .week-info .week-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .week-info .week-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    color: #fff;
+  }
+
+  .week-info .week-goal {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  .days-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .day-item {
+    background: var(--black-card);
+    border: 1px solid var(--black-border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .day-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .day-header:hover { background: rgba(201,146,42,0.05); }
+
+  .day-header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .day-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    min-width: 36px;
+  }
+
+  .day-name {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-main);
+  }
+
+  .day-theme {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  .day-chevron {
+    font-size: 12px;
+    color: var(--gold);
+    transition: transform 0.3s;
+  }
+
+  .day-item.open .day-chevron { transform: rotate(180deg); }
+
+  .day-body {
+    display: none;
+    padding: 0 20px 20px;
+    border-top: 1px solid var(--black-border);
+  }
+
+  .day-item.open .day-body { display: block; }
+
+  .story-item {
+    display: flex;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .story-item:last-child { border-bottom: none; }
+
+  .story-num {
+    width: 28px;
+    height: 28px;
+    background: var(--gold);
+    color: var(--black);
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 50%;
+  }
+
+  .story-content .story-action {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+
+  .story-content p {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .story-content .story-text {
+    font-style: italic;
+    color: var(--text-main);
+    font-size: 13px;
+    margin-top: 4px;
+  }
+
+  /* ── BANCO DE IDEIAS ── */
+  .ideas-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 32px;
+    border-bottom: 1px solid var(--black-border);
+  }
+
+  .idea-tab {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 14px 24px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    position: relative;
+    transition: color 0.3s;
+  }
+
+  .idea-tab::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+
+  .idea-tab.active { color: var(--gold); }
+  .idea-tab.active::after { transform: scaleX(1); }
+
+  .idea-panel { display: none; }
+  .idea-panel.active { display: block; }
+
+  .content-card {
+    background: var(--black-card);
+    border: 1px solid var(--black-border);
+    margin-bottom: 16px;
+    border-radius: 2px;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+
+  .content-card:hover { border-color: rgba(201,146,42,0.4); }
+
+  .content-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 22px;
+    cursor: pointer;
+  }
+
+  .content-card-header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .content-card-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    min-width: 40px;
+  }
+
+  .content-card-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  .content-card-sub {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  .content-chevron {
+    font-size: 12px;
+    color: var(--gold);
+    transition: transform 0.3s;
+  }
+
+  .content-card.open .content-chevron { transform: rotate(180deg); }
+
+  .content-body {
+    display: none;
+    padding: 20px 22px 24px;
+    border-top: 1px solid var(--black-border);
+  }
+
+  .content-card.open .content-body { display: block; }
+
+  .content-section {
+    margin-bottom: 20px;
+  }
+
+  .content-section-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .content-section p,
+  .content-section ul {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.75;
+  }
+
+  .content-section ul {
+    padding-left: 16px;
+  }
+
+  .copy-box {
+    background: rgba(201,146,42,0.06);
+    border: 1px solid rgba(201,146,42,0.2);
+    padding: 16px 18px;
+    font-size: 13px;
+    color: var(--text-main);
+    line-height: 1.8;
+    white-space: pre-wrap;
+    font-style: italic;
+  }
+
+  .hashtag-box {
+    background: var(--black);
+    padding: 12px 16px;
+    font-size: 12px;
+    color: var(--gold);
+    line-height: 1.8;
+    word-break: break-word;
+  }
+
+  /* ── ARTES SECTION ── */
+  .artes-intro {
+    background: var(--black-card);
+    border: 1px solid var(--black-border);
+    border-top: 2px solid var(--gold);
+    padding: 28px;
+    margin-bottom: 40px;
+  }
+
+  .artes-intro p {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 12px;
+  }
+
+  .artes-intro p:last-child { margin-bottom: 0; }
+
+  .links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+    margin-bottom: 48px;
+  }
+
+  .link-card {
+    background: var(--black-card);
+    border: 1px solid var(--black-border);
+    padding: 20px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: border-color 0.3s, background 0.3s;
+  }
+
+  .link-card:hover {
+    border-color: var(--gold);
+    background: rgba(201,146,42,0.05);
+  }
+
+  .link-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .link-info .link-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+
+  .link-info .link-name {
+    font-size: 13px;
+    color: var(--text-main);
+  }
+
+  /* ── GALLERY ── */
+  .gallery-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 8px;
+    margin-bottom: 48px;
+  }
+
+  .gallery-item {
+    aspect-ratio: 4/5;
+    overflow: hidden;
+    background: var(--black-card);
+    border: 1px solid var(--black-border);
+    position: relative;
+  }
+
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .gallery-item:hover img { transform: scale(1.04); }
+
+  .gallery-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    padding: 24px 12px 10px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .gallery-item:hover .gallery-caption { opacity: 1; }
+
+  /* ── HIGHLIGHTS GALLERY ── */
+  .highlights-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+
+  @media (max-width: 600px) {
+    .highlights-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .highlight-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .highlight-img-wrap {
+    width: 100%;
+    aspect-ratio: 9/16;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 2px solid var(--gold);
+    background: var(--black-card);
+  }
+
+  .highlight-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .highlight-name {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  /* ── BEFORE/AFTER ── */
+  .before-after {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+
+  @media (max-width: 600px) {
+    .before-after { grid-template-columns: 1fr; }
+  }
+
+  .ba-panel { }
+
+  .ba-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  .ba-label.before-label { color: var(--text-dim); background: rgba(255,255,255,0.03); }
+  .ba-label.after-label { color: var(--gold); background: rgba(201,146,42,0.08); border: 1px solid rgba(201,146,42,0.2); }
+
+  .ba-img {
+    width: 100%;
+    border: 1px solid var(--black-border);
+    display: block;
+  }
+
+  .ba-bio-panel {
+    background: var(--black-card);
+    border: 1px solid var(--black-border);
+    padding: 20px;
+  }
+
+  .ba-bio-text {
+    font-size: 13px;
+    line-height: 1.9;
+    white-space: pre-wrap;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align: center;
+    padding: 40px 20px;
+    border-top: 1px solid var(--black-border);
+    margin-top: 40px;
+  }
+
+  .footer-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    color: var(--gold);
+    letter-spacing: 3px;
+  }
+
+  .footer-sub {
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .hero { padding: 60px 24px 40px; }
+    .container { padding: 40px 20px; }
+    .destaques-grid { grid-template-columns: repeat(2, 1fr); }
+    .nav-btn { padding: 16px 14px; font-size: 9px; letter-spacing: 1.5px; }
+  }
+
+  /* ── OPENING CARD (intro) ── */
+  .intro-card {
+    background: var(--black-card);
+    border: 1px solid var(--black-border);
+    border-top: 2px solid var(--gold);
+    padding: 32px;
+    margin-bottom: 48px;
+  }
+
+  .intro-card p {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.85;
+  }
+
+  .intro-card strong {
+    color: var(--text-main);
+    font-weight: 500;
+  }
+
+  /* scroll indicator */
+  .scroll-hint {
+    text-align: center;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    padding: 16px;
+    border-top: 1px solid var(--black-border);
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Entregáveis — Pacote Completo</div>
+  <h1 class="hero-title">Salete Souza <em>Imóveis</em></h1>
+  <p class="hero-sub">Estratégia de Conteúdo · Identidade Visual · Direcionamento Digital</p>
+  <div class="hero-ornament">
+    <div class="hero-ornament-line"></div>
+    <div class="hero-ornament-diamond"></div>
+    <div class="hero-ornament-line"></div>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="nav-wrapper">
+  <nav class="nav">
+    <button class="nav-btn active" onclick="showSection('analise', this)">Análise do Perfil</button>
+    <button class="nav-btn" onclick="showSection('stories', this)">30 Dias de Stories</button>
+    <button class="nav-btn" onclick="showSection('banco', this)">Banco de Ideias</button>
+    <button class="nav-btn" onclick="showSection('artes', this)">Artes Editáveis</button>
+  </nav>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     SEÇÃO 1 — ANÁLISE ESTRATÉGICA
+═══════════════════════════════════════════════ -->
+<section id="analise" class="section active">
+  <div class="container">
+
+    <div class="section-header">
+      <span class="section-tag">01 · Diagnóstico</span>
+      <h2 class="section-title">Análise Estratégica<br><em>do Perfil</em></h2>
+      <p class="section-desc">Uma visão honesta sobre o que já funciona, o que precisa evoluir e o caminho claro para transformar seu Instagram num canal de geração de clientes.</p>
+    </div>
+
+    <div class="intro-card">
+      <p>Salete, você já tem algo que muita corretora não tem: <strong>presença real no Instagram</strong>. São 1.200 posts, quase 3 mil seguidores e uma bio que comunica o essencial. Isso não é pouco. O que vamos fazer agora não é começar do zero — é <strong>organizar o que já existe</strong> e dar um direcionamento que transforme seguidores em clientes.</p>
+    </div>
+
+    <!-- PONTOS POSITIVOS -->
+    <div class="section-header" style="margin-bottom: 24px;">
+      <span class="section-tag">✅ O que está funcionando</span>
+    </div>
+
+    <div class="positive-grid">
+      <div class="positive-card">
+        <div class="card-icon">📲</div>
+        <div class="card-title">Volume e Consistência</div>
+        <p>Você posta com frequência. Isso já coloca você à frente de muitos concorrentes que somem por semanas. O Instagram precisa de movimento, e você tem esse hábito.</p>
+      </div>
+      <div class="positive-card">
+        <div class="card-icon">✍️</div>
+        <div class="card-title">Bio Funcional</div>
+        <p>A bio informa o que você faz, onde atua e como entrar em contato. Ela cumpre a função básica de identificação — e temos uma sugestão de melhoria logo abaixo.</p>
+      </div>
+      <div class="positive-card">
+        <div class="card-icon">🏆</div>
+        <div class="card-title">Identidade Visual</div>
+        <p>A logo com preto e dourado é forte e transmite sofisticação — alinhada ao mercado imobiliário de Balneário Camboriú.</p>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- PONTOS A MELHORAR -->
+    <div class="section-header" style="margin-bottom: 24px;">
+      <span class="section-tag">⚠️ O que precisa melhorar</span>
+    </div>
+
+    <div class="problem-list">
+
+      <div class="problem-item">
+        <div class="problem-number">Ponto 01</div>
+        <div class="problem-title">Feed sem identidade visual consistente</div>
+        <p class="problem-text">O feed mistura fotos de imóveis, selfies, registros pessoais e posts de texto sem uma linha visual que conecte tudo. O resultado é um perfil que parece "qualquer um" e não uma marca.</p>
+        <div class="fix-badge">Como ajustar</div>
+        <p class="fix-text">As artes entregues hoje criam esse padrão. Sempre que divulgar um imóvel, use os modelos editáveis do Canva. Isso cria reconhecimento de marca a cada post.</p>
+      </div>
+
+      <div class="problem-item">
+        <div class="problem-number">Ponto 02</div>
+        <div class="problem-title">Conteúdo quase 100% de oferta</div>
+        <p class="problem-text">A maioria dos posts é "imóvel disponível". Quem só vê anúncio não cria vínculo. E quem não cria vínculo, não confia. Quem não confia, não compra.</p>
+        <div class="fix-badge">Como ajustar</div>
+        <p class="fix-text">Vamos intercalar conteúdo humano e de autoridade com as divulgações. A proporção ideal é: 2 posts de conteúdo/humanização para cada 1 de divulgação direta.</p>
+      </div>
+
+      <div class="problem-item">
+        <div class="problem-number">Ponto 03</div>
+        <div class="problem-title">Stories inexistentes</div>
+        <p class="problem-text">O stories é onde a relação acontece. É onde o cliente te conhece de verdade, sente sua energia, vê seu dia a dia e decide se confia em você. Sem stories, você está invisível para quem já te segue.</p>
+        <div class="fix-badge">Como ajustar</div>
+        <p class="fix-text">Entregamos um plano de 30 dias de stories — simples, feito pra quem está começando do zero. Você vai saber exatamente o que filmar, o que falar e quando postar.</p>
+      </div>
+
+      <div class="problem-item">
+        <div class="problem-number">Ponto 04</div>
+        <div class="problem-title">Destaques sem padronização</div>
+        <p class="problem-text">Os destaques atuais têm capas diferentes entre si, sem identidade visual. É a primeira coisa que um novo visitante vê após a bio — e precisa transmitir profissionalismo imediatamente.</p>
+        <div class="fix-badge">Como ajustar</div>
+        <p class="fix-text">Entregamos 6 capas padronizadas na identidade da sua marca. Organize seus destaques como indicado abaixo:</p>
+        <div class="destaques-grid" style="margin-top:16px;">
+          <div class="destaque-item"><div class="dest-icon">🏠</div><div class="dest-name">Imóveis</div></div>
+          <div class="destaque-item"><div class="dest-icon">🏢</div><div class="dest-name">Temporada</div></div>
+          <div class="destaque-item"><div class="dest-icon">📍</div><div class="dest-name">Regiões</div></div>
+          <div class="destaque-item"><div class="dest-icon">🌟</div><div class="dest-name">Salete</div></div>
+          <div class="destaque-item"><div class="dest-icon">💬</div><div class="dest-name">Depoimentos</div></div>
+          <div class="destaque-item"><div class="dest-icon">📞</div><div class="dest-name">Contato</div></div>
+        </div>
+      </div>
+
+      <div class="problem-item">
+        <div class="problem-number">Ponto 05</div>
+        <div class="problem-title">Bio pode ser mais estratégica</div>
+        <p class="problem-text">A bio atual informa, mas não convida. Ela lista o que você faz mas não faz o visitante querer agir.</p>
+        <div class="fix-badge">Sugestão de nova bio</div>
+        <div class="bio-box">
+          <pre>Salete Souza Imóveis | BC 🏙️
+Corretora especialista em Balneário e região
+Locação temporada • Venda • Lançamentos
+CRECI 30.976 | Atendimento direto 👇</pre>
+        </div>
+      </div>
+
+      <div class="problem-item">
+        <div class="problem-number">Ponto 06</div>
+        <div class="problem-title">Sem prova social visível</div>
+        <p class="problem-text">Não há depoimentos, resultados ou histórias de clientes nos posts ou destaques. No mercado imobiliário, confiança é tudo. Quem nunca te viu precisa de evidência de que você entrega.</p>
+        <div class="fix-badge">Como ajustar</div>
+        <p class="fix-text">Assim que receber um feedback positivo de cliente — por WhatsApp, mensagem, pessoalmente — peça autorização e poste. Criamos o modelo de Post de Prova Social exatamente pra isso.</p>
+      </div>
+
+      <div class="problem-item">
+        <div class="problem-number">Ponto 07</div>
+        <div class="problem-title">Ausência de conteúdo de autoridade</div>
+        <p class="problem-text">Não há posts que educam, informam ou posicionam você como especialista no mercado de BC. Quem só mostra imóveis parece vendedor. Quem ensina e informa parece especialista.</p>
+        <div class="fix-badge">Como ajustar</div>
+        <p class="fix-text">O banco de ideias entregue inclui conteúdos de autoridade pensados especialmente pra você — sem precisar ser especialista em redes sociais para executar.</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SEÇÃO 2 — 30 DIAS DE STORIES
+═══════════════════════════════════════════════ -->
+<section id="stories" class="section">
+  <div class="container">
+
+    <div class="section-header">
+      <span class="section-tag">02 · Direcionamento</span>
+      <h2 class="section-title">30 Dias de<br><em>Stories</em></h2>
+      <p class="section-desc">4 stories por dia. Roteiro completo — o que filmar, o que falar, como integrar na sua rotina. Simples o suficiente para quem está começando do zero.</p>
+    </div>
+
+    <div class="intro-card">
+      <p>Salete, os stories são o lugar mais importante do Instagram para criar conexão com quem já te segue. <strong>Não precisa ser perfeito, não precisa ter edição elaborada.</strong> O que funciona é presença constante e naturalidade.</p>
+      <p style="margin-top:12px;">Você vai postar 4 stories por dia. Alguns dias serão mais simples, outros um pouco mais elaborados. Tudo foi pensado para <strong>caber na sua rotina</strong> — inclusive nos dias que você está fora atendendo clientes.</p>
+    </div>
+
+    <!-- SEMANA 1 -->
+    <div class="week-block">
+      <div class="week-header">
+        <div class="week-number">01</div>
+        <div class="week-info">
+          <div class="week-label">Semana</div>
+          <div class="week-title">Apresentação e Primeiros Passos</div>
+          <div class="week-goal">Objetivo: Se apresentar, criar familiaridade e começar a mostrar seu dia a dia</div>
+        </div>
+      </div>
+
+      <div class="days-grid">
+
+        <!-- DIA 1 -->
+        <div class="day-item">
+          <div class="day-header" onclick="toggleDay(this)">
+            <div class="day-header-left">
+              <div class="day-num">1</div>
+              <div>
+                <div class="day-name">Quem é você</div>
+                <div class="day-theme">Apresentação inicial · 4 stories</div>
+              </div>
+            </div>
+            <div class="day-chevron">▼</div>
+          </div>
+          <div class="day-body">
+            <div class="story-item">
+              <div class="story-num">1</div>
+              <div class="story-content">
+                <div class="story-action">📱 Selfie ou foto sua</div>
+                <p>Filme ou fotografe seu rosto de forma natural. Pode ser no escritório, no carro ou em casa.</p>
+                <p class="story-text">"Oi, eu sou a Salete! 👋 Corretora de imóveis em Balneário Camboriú há [X anos]."</p>
+              </div>
+            </div>
+            <div class="story-item">
+              <div class="story-num">2</div>
+              <div class="story-content">
+                <div class="story-action">📱 Foto sua trabalhando ou no celular</div>
+                <p class="story-text">"Aqui você vai me ver por dentro: imóveis, bastidores, dicas e o dia a dia de quem vive o mercado imobiliário de BC."</p>
+              </div>
+            </div>
+            <div class="story-item">
+              <div class="story-num">3</div>
+              <div class="story-content">
+                <div class="story-action">📱 Tela do Instagram aberta no seu perfil</div>
+                <p class="story-text">"Me segue se você quer morar, investir ou veranear aqui no litoral. 🌊"</p>
+              </div>
+            </div>
+            <div class="story-item">
+              <div class="story-num">4</div>
+              <div class="story-content">
+                <div class="story-action">📱 Sticker de enquete</div>
+                <p>Texto: "Você já conhece Balneário Camboriú?"</p>
+                <p class="story-text">Opções: Moro aqui 🏠 / Quero conhecer ✈️</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DIA 2 -->
+        <div class="day-item">
+          <div class="day-header" onclick="toggleDay(this)">
+            <div class="day-header-left">
+              <div class="day-num">2</div>
+              <div>
+                <div class="day-name">Sua área de atuação</div>
+                <div class="day-theme">Regiões que você atende · 4 stories</div>
+              </div>
+            </div>
+            <div class="day-chevron">▼</div>
+          </div>
+          <div class="day-body">
+            <div class="story-item">
+              <div class="story-num">1</div>
+              <div class="story-content">
+                <div class="story-action">📱 Foto ou vídeo de rua/bairro de BC</div>
+                <p class="story-text">"Eu atuo em Balneário Camboriú, Itajaí, Porto Belo e Itapema. Toda a região tem oportunidade boa. 📍"</p>
+              </div>
+            </div>
+            <div class="story-item">
+              <div class="story-num">2</div>
+              <div class="story-content">
+                <div class="story-action">📱 Foto do mar ou da orla de BC</div>
+                <p class="story-text">"Meu foco principal é a temporada — e se tem uma coisa que BC sabe fazer, é atrair pessoas que se apaixonam e querem ficar. ☀️"</p>
+              </div>
+            </div>
+            <div class="story-item">
+              <div class="story-num">3</div>
+              <div class="story-content">
+                <div class="story-action">📱 Sticker de caixa de perguntas</div>
+                <p class="story-text">"Me conta: você busca imóvel pra temporada, pra morar ou pra investir?"</p>
+              </div>
+            </div>
+            <div class="story-item">
+              <div class="story-num">4</div>
+              <div class="story-content">
+                <div class="story-action">📱 Print ou foto de imóvel disponível</div>
+                <p class="story-text">"Enquanto isso, olha que apartamento lindo que tenho disponível. Link na bio ou me chama no ZAP 👇"</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DIA 3 -->
+        <div class="day-item">
+          <div class="day-header" onclick="toggleDay(this)">
+            <div class="day-header-left">
+              <div class="day-num">3</div>
+              <div>
+                <div class="day-name">Bastidores da corretagem</div>
+                <div class="day-theme">Dia de visitas · 4 stories</div>
+              </div>
+            </div>
+            <div class="day-chevron">▼</div>
+          </div>
+          <div class="day-body">
+            <div class="story-item">
+              <div class="story-num">1</div>
+              <div class="story-content">
+                <div class="story-action">📱 Foto no carro ou se deslocando</div>
+                <p class="story-text">"Mais um dia de visitas! 🚗 Hoje a agenda está cheia."</p>
+              </div>
+            </div>
+            <div class="story-item">
+              <div class="story-num">2</div>
+              <div class="story-content">
+                <div class="story-action">📱 Vídeo curto dirigindo ou chegando em algum lugar</div>
+                <p class="story-text">"Corretora de imóveis não fica só no escritório — a gente vive na rua, conhece cada bairro, cada prédio."</p>
+              </div>
+            </div>
+            <div class="story-item">
+              <div class="story-num">3</div>
+              <div class="story-content">
+                <div class="story-action">📱 Foto do imóvel visitado (fachada ou sala)</div>
+                <p class="story-text">"Olha onde eu estou agora. Que ambiente lindo, né? 😍"</p>
+              </div>
+            </div>
+            <div class="story-item">
+              <div class="story-num">4</div>
+              <div class="story-content">
+                <div class="story-action">📱 Sticker de enquete</div>
+                <p class="story-text">"Você sabia que a visita com a corretora é totalmente gratuita?" · Sabia ✅ / Não sabia! 😱</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DIA 4 -->
+        <div class="day-item">
+          <div class="day-header" onclick="toggleDay(this)">
+            <div class="day-header-left">
+              <div class="day-num">4</div>
+              <div>
+                <div class="day-name">Home office / rotina leve</div>
+                <div class="day-theme">Dia mais tranquilo · 4 stories</div>
+              </div>
+            </div>
+            <div class="day-chevron">▼</div>
+          </div>
+          <div class="day-body">
+            <div class="story-item">
+              <div class="story-num">1</div>
+              <div class="story-content">
+                <div class="story-action">📱 Foto do café, mesa de trabalho ou celular</div>
+                <p class="story-text">"Dias de escritório também fazem parte. Respondendo clientes, organizando propostas... 📋"</p>
+              </div>
+            </div>
+            <div class="story-item">
+              <div class="story-num">2</div>
+              <div class="story-content">
+                <div class="story-action">📱 Tela do celular com WhatsApp (sem mostrar nomes)</div>
+                <p class="story-text">"Cada mensagem aqui é uma história. Uma família buscando lar, um investidor procurando oportunidade."</p>
+              </div>
+            </div>
+            <div class="story-item">
+              <div class="story-num">3</div>
+              <div class="story-content">
+                <div class="story-action">📱 Foto de imóvel disponível</div>
+                <p class="story-text">"Você sabia que temos opções de locação temporada a partir de [valor]? Me chama e te conto tudo 👇"</p>
+              </div>
+            </div>
+            <div class="story-item">
+              <div class="story-num">4</div>
+              <div class="story-content">
+                <div class="story-action">📱 Sticker de caixa de perguntas</div>
+                <p class="story-text">"Pode me perguntar qualquer coisa sobre imóveis em BC. Respondo aqui!"</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DIA 5 -->
+        <div class="day-item">
+          <div class="day-header" onclick="toggleDay(this)">
+            <div class="day-header-left">
+              <div class="day-num">5</div>
+              <div>
+                <div class="day-name">Sexta — energia boa</div>
+                <div class="day-theme">Encerrando a semana · 4 stories</div>
+              </div>
+            </div>
+            <div class="day-chevron">▼</div>
+          </div>
+          <div class="day-body">
+            <div class="story-item">
+              <div class="story-num">1</div>
+              <div class="story-content">
+                <div class="story-action">📱 Selfie sorrindo, tom descontraído</div>
+                <p class="story-text">"Sexta! Semana intensa, muitas visitas, muitas conversas boas. 🙌"</p>
+              </div>
+            </div>
+            <div class="story-item">
+              <div class="story-num">2</div>
+              <div class="story-content">
+                <div class="story-action">📱 Foto ou vídeo da região litorânea</div>
+                <p class="story-text">"Trabalhar numa cidade linda assim não tem preço. BC é diferente. 🌊"</p>
+              </div>
+            </div>
+            <div class="story-item">
+              <div class="story-num">3</div>
+              <div class="story-content">
+                <div class="story-action">📱 Foto de imóvel — detalhe bonito (vista, varanda)</div>
+                <p class="story-text">"Olha que vista. Imagina acordar aqui todo dia... Disponível para temporada. Me chama! 📩"</p>
+              </div>
+            </div>
+            <div class="story-item">
+              <div class="story-num">4</div>
+              <div class="story-content">
+                <div class="story-action">📱 Sticker de enquete</div>
+                <p class="story-text">"Fim de semana chegando. Você vai aproveitar a praia?" · Sim, já estou em BC 🏖️ / Queria estar! 😅</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DIA 6 -->
+        <div class="day-item">
+          <div class="day-header" onclick="toggleDay(this)">
+            <div class="day-header-left">
+              <div class="day-num">6</div>
+              <div>
+                <div class="day-name">Sábado — tom pessoal</div>
+                <div class="day-theme">Humanização · 4 stories</div>
+              </div>
+            </div>
+            <div class="day-chevron">▼</div>
+          </div>
+          <div class="day-body">
+            <div class="story-item">
+              <div class="story-num">1</div>
+              <div class="story-content">
+                <div class="story-action">📱 Foto do fim de semana — café, passeio, família</div>
+                <p class="story-text">"Sábado com [o que for — família, descanso, praia]. Recarregando as energias. ☀️"</p>
+              </div>
+            </div>
+            <div class="story-item">
+              <div class="story-num">2</div>
+              <div class="story-content">
+                <div class="story-action">📱 Foto do litoral ou da cidade</div>
+                <p class="story-text">"Quem mora aqui sabe: BC no fim de semana é outro nível."</p>
+              </div>
+            </div>
+            <div class="story-item">
+              <div class="story-num">3</div>
+              <div class="story-content">
+                <div class="story-action">📱 Foto de imóvel com boa vista</div>
+                <p class="story-text">"Inclusive, esse apartamento fica a X metros da praia. Temporada disponível. Quer saber mais? 👇"</p>
+              </div>
+            </div>
+            <div class="story-item">
+              <div class="story-num">4</div>
+              <div class="story-content">
+                <div class="story-action">📱 Sticker simples de agradecimento</div>
+                <p class="story-text">"Obrigada pelas mensagens! Semana que vem tem mais. 🙏"</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DIA 7 -->
+        <div class="day-item">
+          <div class="day-header" onclick="toggleDay(this)">
+            <div class="day-header-left">
+              <div class="day-num">7</div>
+              <div>
+                <div class="day-name">Domingo — encerramento</div>
+                <div class="day-theme">Reflexão e próxima semana · 4 stories</div>
+              </div>
+            </div>
+            <div class="day-chevron">▼</div>
+          </div>
+          <div class="day-body">
+            <div class="story-item">
+              <div class="story-num">1</div>
+              <div class="story-content">
+                <div class="story-action">📱 Foto tranquila, tom reflexivo</div>
+                <p class="story-text">"Domingo de recarregar. Mas o WhatsApp nunca dorme de verdade 😄"</p>
+              </div>
+            </div>
+            <div class="story-item">
+              <div class="story-num">2</div>
+              <div class="story-content">
+                <div class="story-action">📱 Frase de motivação no Canva (modelo story)</div>
+                <p class="story-text">"Investir em imóvel não é gasto. É construir patrimônio."</p>
+              </div>
+            </div>
+            <div class="story-item">
+              <div class="story-num">3</div>
+              <div class="story-content">
+                <div class="story-action">📱 Foto de imóvel disponível</div>
+                <p class="story-text">"Começando a semana já com novidade. Me chama para saber mais!"</p>
+              </div>
+            </div>
+            <div class="story-item">
+              <div class="story-num">4</div>
+              <div class="story-content">
+                <div class="story-action">📱 Sticker de enquete</div>
+                <p class="story-text">"Para você, imóvel é sonho ou investimento?" · Sonho 🏡 / Investimento 📈 / Os dois! 💛</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SEMANA 2 -->
+    <div class="week-block">
+      <div class="week-header">
+        <div class="week-number">02</div>
+        <div class="week-info">
+          <div class="week-label">Semana</div>
+          <div class="week-title">Construindo Autoridade</div>
+          <div class="week-goal">Objetivo: Mostrar conhecimento do mercado, gerar confiança</div>
+        </div>
+      </div>
+      <div class="days-grid">
+
+        <!-- DIA 8 -->
+        <div class="day-item">
+          <div class="day-header" onclick="toggleDay(this)">
+            <div class="day-header-left">
+              <div class="day-num">8</div>
+              <div>
+                <div class="day-name">Dica de mercado</div>
+                <div class="day-theme">Autoridade · 4 stories</div>
+              </div>
+            </div>
+            <div class="day-chevron">▼</div>
+          </div>
+          <div class="day-body">
+            <div class="story-item">
+              <div class="story-num">1</div>
+              <div class="story-content">
+                <div class="story-action">📱 Foto sua com expressão atenta</div>
+                <p class="story-text">"Vou te contar algo que muita gente não sabe sobre temporada em BC. 👇"</p>
+              </div>
+            </div>
+            <div class="story-item">
+              <div class="story-num">2</div>
+              <div class="story-content">
+                <div class="story-action">📱 Texto no Canva ou digitado no story</div>
+                <p class="story-text">"A alta temporada em BC vai de dezembro a fevereiro. Mas sabe quando os bons imóveis saem? Meses antes. Quem espera, fica com o que sobra."</p>
+              </div>
+            </div>
+            <div class="story-item">
+              <div class="story-num">3</div>
+              <div class="story-content">
+                <div class="story-action">📱 Foto de imóvel ou tela do celular</div>
+                <p class="story-text">"Se você quer garantir o melhor, o momento de procurar é agora. Me chama que te ajudo a encontrar. 📩"</p>
+              </div>
+            </div>
+            <div class="story-item">
+              <div class="story-num">4</div>
+              <div class="story-content">
+                <div class="story-action">📱 Sticker de enquete</div>
+                <p class="story-text">"Você já sabia disso?" · Sabia 👍 / Não sabia 😮</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DIAS 9 AO 14 — COMPACTOS -->
+        <div class="day-item">
+          <div class="day-header" onclick="toggleDay(this)">
+            <div class="day-header-left">
+              <div class="day-num">9</div>
+              <div>
+                <div class="day-name">Apresentando uma região</div>
+                <div class="day-theme">Bairros e localidades · 4 stories</div>
+              </div>
+            </div>
+            <div class="day-chevron">▼</div>
+          </div>
+          <div class="day-body">
+            <div class="story-item"><div class="story-num">1</div><div class="story-content"><div class="story-action">📱 Foto ou vídeo de bairro que você conhece bem</div><p class="story-text">"Hoje quero te mostrar [bairro/região]. Um dos meus favoritos aqui em BC."</p></div></div>
+            <div class="story-item"><div class="story-num">2</div><div class="story-content"><div class="story-action">📱 Outro ângulo ou detalhe do local</div><p class="story-text">"Essa região é ótima para [famílias/investidores/praia] porque [motivo prático]."</p></div></div>
+            <div class="story-item"><div class="story-num">3</div><div class="story-content"><div class="story-action">📱 Foto de imóvel nessa região</div><p class="story-text">"Inclusive, tenho um apartamento disponível aqui. Quer ver? Me chama! 👇"</p></div></div>
+            <div class="story-item"><div class="story-num">4</div><div class="story-content"><div class="story-action">📱 Sticker de caixa de perguntas</div><p class="story-text">"Qual região de BC você mais gosta ou tem curiosidade?"</p></div></div>
+          </div>
+        </div>
+
+        <div class="day-item">
+          <div class="day-header" onclick="toggleDay(this)">
+            <div class="day-header-left">
+              <div class="day-num">10</div>
+              <div>
+                <div class="day-name">Dia de visita externa</div>
+                <div class="day-theme">Bastidores de atendimento · 4 stories</div>
+              </div>
+            </div>
+            <div class="day-chevron">▼</div>
+          </div>
+          <div class="day-body">
+            <div class="story-item"><div class="story-num">1</div><div class="story-content"><div class="story-action">📱 Você chegando ou saindo para visita</div><p class="story-text">"Saindo para atender um cliente em [cidade/bairro]. Vamos lá! 🚗"</p></div></div>
+            <div class="story-item"><div class="story-num">2</div><div class="story-content"><div class="story-action">📱 Detalhe arquitetônico interessante</div><p class="story-text">"Olha esse detalhe. [Cite algo: varanda, piso, vista]. Difícil resistir."</p></div></div>
+            <div class="story-item"><div class="story-num">3</div><div class="story-content"><div class="story-action">📱 Foto mais ampla do imóvel visitado</div><p class="story-text">"Imóvel disponível para [venda/locação]. Quer os detalhes completos? Me chama! 📲"</p></div></div>
+            <div class="story-item"><div class="story-num">4</div><div class="story-content"><div class="story-action">📱 Você voltando — tom de encerramento</div><p class="story-text">"Mais uma visita feita! Adoro quando o cliente encontra o que procurava. 🙏"</p></div></div>
+          </div>
+        </div>
+
+        <div class="day-item">
+          <div class="day-header" onclick="toggleDay(this)">
+            <div class="day-header-left">
+              <div class="day-num">11</div>
+              <div>
+                <div class="day-name">Humanização — sua história</div>
+                <div class="day-theme">Conexão pessoal · 4 stories</div>
+              </div>
+            </div>
+            <div class="day-chevron">▼</div>
+          </div>
+          <div class="day-body">
+            <div class="story-item"><div class="story-num">1</div><div class="story-content"><div class="story-action">📱 Foto sua, tom pessoal</div><p class="story-text">"Posso te contar como eu me tornei corretora?"</p></div></div>
+            <div class="story-item"><div class="story-num">2</div><div class="story-content"><div class="story-action">📱 Foto relacionada — algo simbólico da sua trajetória</div><p class="story-text">"Eu escolhi essa profissão porque [complete com sua história real]."</p></div></div>
+            <div class="story-item"><div class="story-num">3</div><div class="story-content"><div class="story-action">📱 Foto sua atual, sorrindo</div><p class="story-text">"Hoje eu não troco por nada. Ver a expressão do cliente quando encontra o imóvel certo... é isso que me move. 💛"</p></div></div>
+            <div class="story-item"><div class="story-num">4</div><div class="story-content"><div class="story-action">📱 Sticker de caixa de perguntas</div><p class="story-text">"Me conta: você tem um sonho relacionado a imóvel que ainda não realizou?"</p></div></div>
+          </div>
+        </div>
+
+        <div class="day-item">
+          <div class="day-header" onclick="toggleDay(this)">
+            <div class="day-header-left">
+              <div class="day-num">12</div>
+              <div>
+                <div class="day-name">Desmistificando dúvidas comuns</div>
+                <div class="day-theme">Educação e confiança · 4 stories</div>
+              </div>
+            </div>
+            <div class="day-chevron">▼</div>
+          </div>
+          <div class="day-body">
+            <div class="story-item"><div class="story-num">1</div><div class="story-content"><div class="story-action">📱 Foto ou texto simples</div><p class="story-text">"Vira e mexe me perguntam: 'Salete, precisa ter todo o valor para comprar um imóvel?'"</p></div></div>
+            <div class="story-item"><div class="story-num">2</div><div class="story-content"><div class="story-action">📱 Resposta</div><p class="story-text">"Não! Existem diversas formas de financiamento, entrada parcelada e imóveis na planta com condições acessíveis. O que falta na maioria das vezes é informação — não dinheiro."</p></div></div>
+            <div class="story-item"><div class="story-num">3</div><div class="story-content"><div class="story-action">📱 Chamada para ação</div><p class="story-text">"Me manda uma mensagem. Sem compromisso, sem pressão. Só uma conversa para entender o que é possível pra você."</p></div></div>
+            <div class="story-item"><div class="story-num">4</div><div class="story-content"><div class="story-action">📱 Sticker de enquete</div><p class="story-text">"Você acha que comprar imóvel é complicado?" · Sim, parece difícil 😬 / Só preciso de orientação 💪</p></div></div>
+          </div>
+        </div>
+
+        <div class="day-item">
+          <div class="day-header" onclick="toggleDay(this)">
+            <div class="day-header-left">
+              <div class="day-num">13 & 14</div>
+              <div>
+                <div class="day-name">Sábado pessoal + Domingo inspirador</div>
+                <div class="day-theme">Fim de semana · 4 stories cada</div>
+              </div>
+            </div>
+            <div class="day-chevron">▼</div>
+          </div>
+          <div class="day-body">
+            <p style="font-size:13px; color: var(--text-muted); margin-bottom:12px;">Sábado (Dia 13):</p>
+            <div class="story-item"><div class="story-num">1</div><div class="story-content"><div class="story-action">📱 Momento pessoal do fim de semana</div><p class="story-text">"[O que você está fazendo — café, passeio, descanso]. Merecido!"</p></div></div>
+            <div class="story-item"><div class="story-num">3</div><div class="story-content"><div class="story-action">📱 Imóvel de destaque da semana</div><p class="story-text">"Destaque da semana: [breve descrição]. Interessou? 📩"</p></div></div>
+            <p style="font-size:13px; color: var(--text-muted); margin: 12px 0;">Domingo (Dia 14):</p>
+            <div class="story-item"><div class="story-num">2</div><div class="story-content"><div class="story-action">📱 Frase no Canva</div><p class="story-text">"O imóvel certo muda a vida de uma família. Esse é o meu trabalho."</p></div></div>
+            <div class="story-item"><div class="story-num">4</div><div class="story-content"><div class="story-action">📱 Sticker de enquete</div><p class="story-text">"Você prefere imóvel na praia ou em área mais tranquila?" · Praia 🌊 / Área tranquila 🌿</p></div></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SEMANAS 3 E 4 — RESUMIDAS -->
+    <div class="week-block">
+      <div class="week-header">
+        <div class="week-number">03</div>
+        <div class="week-info">
+          <div class="week-label">Semana</div>
+          <div class="week-title">Mostrando Imóveis com Estratégia</div>
+          <div class="week-goal">Objetivo: Divulgar imóveis de forma envolvente, não só como anúncio</div>
+        </div>
+      </div>
+      <div class="days-grid">
+
+        <div class="day-item">
+          <div class="day-header" onclick="toggleDay(this)">
+            <div class="day-header-left"><div class="day-num">15</div><div><div class="day-name">Tour de imóvel</div><div class="day-theme">Apresentação completa de apartamento</div></div></div>
+            <div class="day-chevron">▼</div>
+          </div>
+          <div class="day-body">
+            <div class="story-item"><div class="story-num">1</div><div class="story-content"><div class="story-action">📱 Fachada do prédio ou entrada</div><p class="story-text">"Vou te mostrar um apartamento que eu AMO. Segura aqui! 👇"</p></div></div>
+            <div class="story-item"><div class="story-num">2</div><div class="story-content"><div class="story-action">📱 Sala ou ambiente principal</div><p class="story-text">"Olha o espaço. [Cite metragem, dormitórios, diferencial]. Perfeito para [perfil ideal]."</p></div></div>
+            <div class="story-item"><div class="story-num">3</div><div class="story-content"><div class="story-action">📱 Detalhe especial — varanda, vista, cozinha</div><p class="story-text">"Esse [detalhe] foi o que me encantou. 😍"</p></div></div>
+            <div class="story-item"><div class="story-num">4</div><div class="story-content"><div class="story-action">📱 CTA direto</div><p class="story-text">"Disponível para [venda/temporada/locação]. Me chama que te passo todos os detalhes! 📩 47 9 99620472"</p></div></div>
+          </div>
+        </div>
+
+        <div class="day-item">
+          <div class="day-header" onclick="toggleDay(this)">
+            <div class="day-header-left"><div class="day-num">16 – 21</div><div><div class="day-name">Dias 16 a 21</div><div class="day-theme">Bastidores, temporada, dia fora, dúvidas, fim de semana</div></div></div>
+            <div class="day-chevron">▼</div>
+          </div>
+          <div class="day-body">
+            <p style="font-size:13px; color:var(--text-muted); line-height:1.8;">
+              <strong style="color:var(--gold);">Dia 16 — Bastidores (antes da visita):</strong> Mostre que o trabalho começa antes de sair de casa. Você organizando agenda, fazendo briefing do cliente.<br><br>
+              <strong style="color:var(--gold);">Dia 17 — Imóvel de temporada (foco na experiência):</strong> Venda a experiência, não o produto. Ambiente aconchegante, família reunida, mar do lado.<br><br>
+              <strong style="color:var(--gold);">Dia 18 — Dia fora / atendimento em outra cidade:</strong> Destaque Itajaí, Porto Belo ou Itapema. Mostre que você atende toda a região.<br><br>
+              <strong style="color:var(--gold);">Dia 19 — Resposta de perguntas frequentes:</strong> Use perguntas reais que você recebe. "Salete, vale mais alugar ou comprar?"<br><br>
+              <strong style="color:var(--gold);">Dia 20 — Fim de semana pessoal:</strong> Mais humano, mostre BC no sábado. Feche com imóvel de destaque.<br><br>
+              <strong style="color:var(--gold);">Dia 21 — Domingo reflexivo:</strong> Frase no Canva + enquete "O que você mais quer ver por aqui?" 🏠 ou 💡
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="week-block">
+      <div class="week-header">
+        <div class="week-number">04</div>
+        <div class="week-info">
+          <div class="week-label">Semana</div>
+          <div class="week-title">Conversão e Relacionamento</div>
+          <div class="week-goal">Objetivo: Transformar engajamento em contato, reforçar confiança</div>
+        </div>
+      </div>
+      <div class="days-grid">
+
+        <div class="day-item">
+          <div class="day-header" onclick="toggleDay(this)">
+            <div class="day-header-left"><div class="day-num">22</div><div><div class="day-name">Prova social</div><div class="day-theme">Depoimento de cliente · 4 stories</div></div></div>
+            <div class="day-chevron">▼</div>
+          </div>
+          <div class="day-body">
+            <div class="story-item"><div class="story-num">1</div><div class="story-content"><div class="story-action">📱 Foto sua sorrindo</div><p class="story-text">"Esse recado que recebi essa semana me fez o dia. 💛"</p></div></div>
+            <div class="story-item"><div class="story-num">2</div><div class="story-content"><div class="story-action">📱 Print do depoimento (com autorização)</div><p class="story-text">[Mensagem do cliente]</p></div></div>
+            <div class="story-item"><div class="story-num">3</div><div class="story-content"><div class="story-action">📱 Foto sua ou do imóvel relacionado</div><p class="story-text">"Ver o cliente feliz é o maior pagamento que existe. Isso que me faz continuar."</p></div></div>
+            <div class="story-item"><div class="story-num">4</div><div class="story-content"><div class="story-action">📱 CTA</div><p class="story-text">"Você também está buscando? Me chama. Vou te ajudar com o mesmo cuidado. 📩 47 9 99620472"</p></div></div>
+          </div>
+        </div>
+
+        <div class="day-item">
+          <div class="day-header" onclick="toggleDay(this)">
+            <div class="day-header-left"><div class="day-num">23 – 28</div><div><div class="day-name">Dias 23 a 28</div><div class="day-theme">Processo de trabalho, novidades, dicas, conversão</div></div></div>
+            <div class="day-chevron">▼</div>
+          </div>
+          <div class="day-body">
+            <p style="font-size:13px; color:var(--text-muted); line-height:1.8;">
+              <strong style="color:var(--gold);">Dia 23 — Como funciona trabalhar comigo:</strong> 4 passos simples. Do primeiro contato até o imóvel nas mãos.<br><br>
+              <strong style="color:var(--gold);">Dia 24 — Imóvel especial / novidade:</strong> "🚨 Acabou de entrar na carteira." Gere urgência e contagem regressiva.<br><br>
+              <strong style="color:var(--gold);">Dia 25 — Dica para quem quer alugar na temporada:</strong> Reserve com antecedência. Defina o que precisa. Trabalhe com corretora.<br><br>
+              <strong style="color:var(--gold);">Dia 26 — Dia fora / visita especial:</strong> Crie suspense antes, revele depois. Enquete "Curtiu esse imóvel?"<br><br>
+              <strong style="color:var(--gold);">Dia 27 — Sábado pessoal + imóvel da semana:</strong> Reflexão da semana + destaque imobiliário.<br><br>
+              <strong style="color:var(--gold);">Dia 28 — Domingo encerramento do mês:</strong> "30 dias de stories e muita coisa boa aconteceu aqui." Frase final no Canva. CTA de indicação.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SEÇÃO 3 — BANCO DE IDEIAS
+═══════════════════════════════════════════════ -->
+<section id="banco" class="section">
+  <div class="container">
+
+    <div class="section-header">
+      <span class="section-tag">03 · Conteúdo</span>
+      <h2 class="section-title">Banco de Ideias<br><em>de Posts</em></h2>
+      <p class="section-desc">15 posts de foto + 15 Reels. Cada ideia com título, o que filmar/fotografar, roteiro completo, copy e hashtags. É só seguir.</p>
+    </div>
+
+    <div class="intro-card">
+      <p>Salete, esse banco é o seu <strong>cardápio de conteúdo</strong>. Você não precisa fazer tudo de uma vez — escolha 2 por semana e vá executando no seu ritmo. Cada ideia tem tudo que você precisa para executar sem depender de ninguém.</p>
+    </div>
+
+    <div class="ideas-tabs">
+      <button class="idea-tab active" onclick="showIdeaTab('fotos', this)">📷 Posts de Foto (15)</button>
+      <button class="idea-tab" onclick="showIdeaTab('reels', this)">🎬 Reels (15)</button>
+    </div>
+
+    <!-- FOTOS -->
+    <div id="fotos" class="idea-panel active">
+
+      <!-- FOTO 01 -->
+      <div class="content-card">
+        <div class="content-card-header" onclick="toggleCard(this)">
+          <div class="content-card-header-left">
+            <div class="content-card-num">01</div>
+            <div>
+              <div class="content-card-title">A corretora por trás do perfil</div>
+              <div class="content-card-sub">Quem é Salete Souza</div>
+            </div>
+          </div>
+          <div class="content-chevron">▼</div>
+        </div>
+        <div class="content-body">
+          <div class="content-section">
+            <div class="content-section-label">O que fotografar</div>
+            <p>Foto sua de corpo inteiro ou meio corpo, bem iluminada. Pode ser na rua, num corredor de prédio bonito ou num ambiente clean. Roupa arrumada, sorriso natural. Luz natural funciona muito bem — perto de janela ou do lado de fora.</p>
+          </div>
+          <div class="content-section">
+            <div class="content-section-label">Roteiro da copy</div>
+            <p>Comece se apresentando de verdade — não só nome e CRECI, mas quem você é como pessoa. Fale por que escolheu essa profissão e o que o cliente pode esperar quando te contrata.</p>
+          </div>
+          <div class="content-section">
+            <div class="content-section-label">Exemplo de copy</div>
+            <div class="copy-box">Meu nome é Salete Souza, sou corretora de imóveis em Balneário Camboriú há [X anos] e escolhi essa profissão porque acredito que o imóvel certo muda a vida de uma família.
+
+Aqui você vai encontrar imóveis em Balneário e região, dicas reais do mercado e uma corretora que atende de verdade — sem enrolação.
+
+Me chama no WhatsApp ou deixa seu contato nos comentários. Vamos conversar? 🏠</div>
+          </div>
+          <div class="content-section">
+            <div class="content-section-label">Hashtags</div>
+            <div class="hashtag-box">#corretoradeimoveis #balneariocamboriu #imoveisbc #saletesouzaimoveis #imobiliariabc #corretorabc #litoral #investimentoimobiliario</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FOTO 02 -->
+      <div class="content-card">
+        <div class="content-card-header" onclick="toggleCard(this)">
+          <div class="content-card-header-left">
+            <div class="content-card-num">02</div>
+            <div>
+              <div class="content-card-title">O imóvel que você amou</div>
+              <div class="content-card-sub">Esse aqui me encantou</div>
+            </div>
+          </div>
+          <div class="content-chevron">▼</div>
+        </div>
+        <div class="content-body">
+          <div class="content-section"><div class="content-section-label">O que fotografar</div><p>Foto de um imóvel que você visitou recentemente e achou especial. Pode ser a varanda, a vista, a sala bem iluminada. Capriche na luz — abra as janelas antes de fotografar.</p></div>
+          <div class="content-section"><div class="content-section-label">Roteiro da copy</div><p>Conte a história do imóvel como se estivesse falando pra uma amiga. O que te encantou, onde fica, pra quem é ideal. Não escreva como anúncio — escreva como quem está compartilhando uma descoberta.</p></div>
+          <div class="content-section"><div class="content-section-label">Exemplo de copy</div><div class="copy-box">Entrei nesse apartamento essa semana e não consegui sair logo. Você já entrou num lugar e sentiu que alguém poderia ser muito feliz aqui?
+
+[Descrição: localização, dormitórios, diferencial principal.]
+
+Essa é a minha parte favorita do trabalho — encontrar imóveis que têm alma. Esse tem.
+
+Interessou? Me chama no WhatsApp 👇 47 9 99620472</div></div>
+          <div class="content-section"><div class="content-section-label">Hashtags</div><div class="hashtag-box">#imoveisbalneariocamboriu #apartamentobc #imovelcomvida #corretoradeimoveis #imoveisnolitoral #balneariocamboriu #vistadomar #imoveissc</div></div>
+        </div>
+      </div>
+
+      <!-- FOTO 03 -->
+      <div class="content-card">
+        <div class="content-card-header" onclick="toggleCard(this)">
+          <div class="content-card-header-left">
+            <div class="content-card-num">03</div>
+            <div>
+              <div class="content-card-title">Você no seu ambiente de trabalho</div>
+              <div class="content-card-sub">Bastidores: um dia de trabalho real</div>
+            </div>
+          </div>
+          <div class="content-chevron">▼</div>
+        </div>
+        <div class="content-body">
+          <div class="content-section"><div class="content-section-label">O que fotografar</div><p>Foto sua no carro antes de uma visita, com o celular na mão ou olhando pra frente. Ou foto sua chegando num prédio. Algo que mostre movimento e trabalho real — não pose forçada.</p></div>
+          <div class="content-section"><div class="content-section-label">Exemplo de copy</div><div class="copy-box">Mais um dia com agenda cheia. Hoje foram [número] visitas em [cidade/bairro].
+
+A maioria das pessoas não sabe, mas o trabalho da corretora começa muito antes da visita: entender o cliente, selecionar os imóveis certos, preparar as informações, organizar o roteiro.
+
+Faço tudo isso porque quando o cliente entra no imóvel certo — você vê no olho dele. Não tem preço.
+
+Se você está buscando imóvel em Balneário e região, me chama. 📩</div></div>
+          <div class="content-section"><div class="content-section-label">Hashtags</div><div class="hashtag-box">#corretoradeimoveis #rotinacorretora #bastidores #imoveisbc #balneariocamboriu #trabalhocomamor #imobiliariabc</div></div>
+        </div>
+      </div>
+
+      <!-- FOTO 04 -->
+      <div class="content-card">
+        <div class="content-card-header" onclick="toggleCard(this)">
+          <div class="content-card-header-left">
+            <div class="content-card-num">04</div>
+            <div>
+              <div class="content-card-title">Prova social — depoimento de cliente</div>
+              <div class="content-card-sub">O que os clientes falam</div>
+            </div>
+          </div>
+          <div class="content-chevron">▼</div>
+        </div>
+        <div class="content-body">
+          <div class="content-section"><div class="content-section-label">O que fotografar / usar</div><p>Use o modelo de Post de Prova Social que entregamos no Canva. Você vai precisar de uma foto do imóvel vendido/alugado e o texto do depoimento do cliente.</p></div>
+          <div class="content-section"><div class="content-section-label">Exemplo de copy</div><div class="copy-box">[Nome do cliente] me chamou buscando um apartamento pra temporada em BC. Em menos de [tempo], encontramos o imóvel ideal.
+
+Olha o que ele me mandou depois:
+"[Depoimento real do cliente]"
+
+Isso é o que me faz querer sempre fazer mais e melhor. Obrigada pela confiança, [nome]! 🙏
+
+Você também está buscando? Me chama. 📩 47 9 99620472</div></div>
+          <div class="content-section"><div class="content-section-label">Hashtags</div><div class="hashtag-box">#depoimentodecliente #corretoradeimoveis #imoveisbc #balneariocamboriu #satisfacaodocliente #imobiliariabc #compradeimovel</div></div>
+        </div>
+      </div>
+
+      <!-- FOTO 05 -->
+      <div class="content-card">
+        <div class="content-card-header" onclick="toggleCard(this)">
+          <div class="content-card-header-left">
+            <div class="content-card-num">05</div>
+            <div>
+              <div class="content-card-title">Dica prática do mercado</div>
+              <div class="content-card-sub">Antes de alugar na temporada, leia isso</div>
+            </div>
+          </div>
+          <div class="content-chevron">▼</div>
+        </div>
+        <div class="content-body">
+          <div class="content-section"><div class="content-section-label">O que fotografar</div><p>Foto sua com expressão atenta, como se estivesse dando um conselho. Pode ser uma foto simples olhando pra câmera.</p></div>
+          <div class="content-section"><div class="content-section-label">Exemplo de copy</div><div class="copy-box">3 coisas que você precisa saber antes de alugar imóvel de temporada em Balneário Camboriú:
+
+1️⃣ Reserve com antecedência. Os melhores apartamentos somem meses antes do verão.
+
+2️⃣ Verifique se o valor inclui todas as taxas — condomínio, limpeza, IPTU. Muita surpresa acontece na hora de pagar.
+
+3️⃣ Trabalhe com corretora. Ela conhece os imóveis por dentro, sabe quais valem o preço e quais não.
+
+Alguma dúvida? Me chama. Oriento sem compromisso. 📩</div></div>
+          <div class="content-section"><div class="content-section-label">Hashtags</div><div class="hashtag-box">#dicadeimovel #temporadabc #balneariocamboriu #imoveistemporada #corretoradeimoveis #verao #litoral</div></div>
+        </div>
+      </div>
+
+      <!-- FOTOS 06-15 RESUMIDAS -->
+      <div class="content-card">
+        <div class="content-card-header" onclick="toggleCard(this)">
+          <div class="content-card-header-left">
+            <div class="content-card-num">06</div>
+            <div><div class="content-card-title">Imóvel com storytelling</div><div class="content-card-sub">Essa vista tem dono — será que é você?</div></div>
+          </div>
+          <div class="content-chevron">▼</div>
+        </div>
+        <div class="content-body">
+          <div class="content-section"><div class="content-section-label">O que fotografar</div><p>A melhor foto de um imóvel disponível — foque na vista, na varanda ou no ambiente mais bonito. Luz natural, janelas abertas.</p></div>
+          <div class="content-section"><div class="content-section-label">Exemplo de copy</div><div class="copy-box">Imagine acordar com essa vista todo dia.
+
+Café na varanda. Brisa do mar. A cidade ainda quieta lá embaixo.
+
+Esse apartamento fica em [localização]. [Nº] dormitórios, [metragem], disponível para [tipo].
+
+Se você está esperando o sinal pra investir ou realizar esse sonho — esse é o sinal.
+
+Me chama. 📩 47 9 99620472</div></div>
+          <div class="content-section"><div class="content-section-label">Hashtags</div><div class="hashtag-box">#vistadomar #apartamentodossonhos #imoveisbc #balneariocamboriu #litoral #corretoradeimoveis</div></div>
+        </div>
+      </div>
+
+      <div class="content-card">
+        <div class="content-card-header" onclick="toggleCard(this)">
+          <div class="content-card-header-left">
+            <div class="content-card-num">07</div>
+            <div><div class="content-card-title">Você e a cidade</div><div class="content-card-sub">Por que BC é diferente</div></div>
+          </div>
+          <div class="content-chevron">▼</div>
+        </div>
+        <div class="content-body">
+          <div class="content-section"><div class="content-section-label">O que fotografar</div><p>Foto sua na orla, na avenida central ou num ponto bonito da cidade. Pode ser selfie ou pedir pra alguém fotografar com a cidade ao fundo.</p></div>
+          <div class="content-section"><div class="content-section-label">Exemplo de copy</div><div class="copy-box">Tem lugares que a gente não escolhe — eles nos escolhem.
+
+Eu poderia trabalhar em qualquer cidade. Mas BC tem algo que não tem em outro lugar: uma energia que faz as pessoas se apaixonarem e quererem ficar.
+
+Quem vem de férias vai embora pensando em morar. Quem investe aqui, não se arrepende.
+
+Eu vivo e trabalho aqui porque acredito no potencial dessa cidade. E é por isso que sei encontrar as melhores oportunidades pra você.
+
+Está pensando em BC? Me chama. 🌊</div></div>
+          <div class="content-section"><div class="content-section-label">Hashtags</div><div class="hashtag-box">#balneariocamboriu #bcisland #imoveisbc #litoral #vivernobc #corretoradeimoveis #santacatarina</div></div>
+        </div>
+      </div>
+
+      <div class="content-card">
+        <div class="content-card-header" onclick="toggleCard(this)">
+          <div class="content-card-header-left">
+            <div class="content-card-num">08</div>
+            <div><div class="content-card-title">Oportunidade de investimento</div><div class="content-card-sub">Imóvel de venda com dados</div></div>
+          </div>
+          <div class="content-chevron">▼</div>
+        </div>
+        <div class="content-body">
+          <div class="content-section"><div class="content-section-label">O que usar</div><p>Use o modelo de Post de Imóvel do Canva. Foto do imóvel + dados principais. Para o post de feed, a foto precisa ser boa — iluminação natural, ambiente organizado.</p></div>
+          <div class="content-section"><div class="content-section-label">Exemplo de copy</div><div class="copy-box">Quem está esperando a hora certa de investir em BC — essa hora pode ser agora.
+
+📍 [Localização]
+🛏️ [Dormitórios] | [Metragem]
+💰 [Valor se puder divulgar]
+✅ [Diferencial: vista mar / churrasqueira / piscina]
+
+Balneário Camboriú é uma das cidades com maior valorização imobiliária do país. Comprar aqui não é gasto — é patrimônio.
+
+Interessou? Me chama e te passo todos os detalhes. 📩 47 9 99620472</div></div>
+          <div class="content-section"><div class="content-section-label">Hashtags</div><div class="hashtag-box">#imoveisvenda #investimentoimobiliario #balneariocamboriu #imoveisbc #oportunidade #corretoradeimoveis #apartamentobc</div></div>
+        </div>
+      </div>
+
+      <div class="content-card">
+        <div class="content-card-header" onclick="toggleCard(this)">
+          <div class="content-card-header-left">
+            <div class="content-card-num">09</div>
+            <div><div class="content-card-title">O que ninguém vê no trabalho de corretora</div><div class="content-card-sub">Reflexão sobre a profissão</div></div>
+          </div>
+          <div class="content-chevron">▼</div>
+        </div>
+        <div class="content-body">
+          <div class="content-section"><div class="content-section-label">O que fotografar</div><p>Foto sua de perfil ou olhando pra longe — algo mais reflexivo. Pode ser no fim do dia, num ambiente com boa luz.</p></div>
+          <div class="content-section"><div class="content-section-label">Exemplo de copy</div><div class="copy-box">As pessoas veem a visita. Não veem as horas antes dela.
+
+Veem o imóvel entregue. Não veem a negociação, a burocracia, os documentos.
+
+Veem o cliente feliz. Não veem as vezes que a gente precisou recomeçar a busca do zero.
+
+Ser corretora de imóveis é muito mais do que mostrar apartamento. É carregar junto o sonho de quem confia em você.
+
+E é exatamente isso que me faz querer continuar. Todo dia. 🙏</div></div>
+          <div class="content-section"><div class="content-section-label">Hashtags</div><div class="hashtag-box">#corretoradeimoveis #bastidores #imoveisbc #trabalhocomproposito #balneariocamboriu #marcapessoal</div></div>
+        </div>
+      </div>
+
+      <div class="content-card">
+        <div class="content-card-header" onclick="toggleCard(this)">
+          <div class="content-card-header-left">
+            <div class="content-card-num">10</div>
+            <div><div class="content-card-title">Sua próxima temporada começa aqui</div><div class="content-card-sub">Imóvel de temporada — foco na experiência</div></div>
+          </div>
+          <div class="content-chevron">▼</div>
+        </div>
+        <div class="content-body">
+          <div class="content-section"><div class="content-section-label">O que fotografar</div><p>Foto do imóvel mais aconchegante que você tem — pode ser a sala, a varanda ou a vista. Ambiente arrumado e iluminado.</p></div>
+          <div class="content-section"><div class="content-section-label">Exemplo de copy</div><div class="copy-box">Família reunida. Mar do lado. Sem preocupação.
+
+É isso que uma boa temporada em BC oferece — e esse apartamento entrega tudo isso.
+
+📍 [Localização] | [Quadra do mar / Vista mar]
+🛏️ [Dormitórios] | Acomoda [número] pessoas
+📅 Disponível para [período]
+
+Garanta agora antes que alguém saia na frente. Temporada boa se planeja com antecedência.
+
+Me chama! 📩 47 9 99620472</div></div>
+          <div class="content-section"><div class="content-section-label">Hashtags</div><div class="hashtag-box">#temporadabc #veraobc #balneariocamboriu #alugueltemporada #imoveistemporada #bcisland #ferias #litoral</div></div>
+        </div>
+      </div>
+
+      <div class="content-card">
+        <div class="content-card-header" onclick="toggleCard(this)">
+          <div class="content-card-header-left">
+            <div class="content-card-num">11</div>
+            <div><div class="content-card-title">Por que contratar uma corretora?</div><div class="content-card-sub">Você realmente precisa?</div></div>
+          </div>
+          <div class="content-chevron">▼</div>
+        </div>
+        <div class="content-body">
+          <div class="content-section"><div class="content-section-label">Exemplo de copy</div><div class="copy-box">Resposta honesta: nem sempre. Mas deixa eu te contar quando faz toda a diferença.
+
+✅ Quando você não tem tempo pra garimpar imóvel por imóvel.
+✅ Quando não conhece a região e precisa de alguém que saiba de verdade.
+✅ Quando quer negociar melhor e não sabe como.
+✅ Quando não quer surpresa na documentação.
+
+Nesses casos — e são a maioria — a corretora não é um custo. É economia de tempo, dinheiro e dor de cabeça.
+
+Eu atendo em Balneário e região. Me chama. 📩</div></div>
+          <div class="content-section"><div class="content-section-label">Hashtags</div><div class="hashtag-box">#corretoradeimoveis #imoveisbc #balneariocamboriu #dicadeimovel #compradeimovel #educacaoimobiliaria</div></div>
+        </div>
+      </div>
+
+      <div class="content-card">
+        <div class="content-card-header" onclick="toggleCard(this)">
+          <div class="content-card-header-left">
+            <div class="content-card-num">12</div>
+            <div><div class="content-card-title">Você e um cliente</div><div class="content-card-sub">Mais uma história de sucesso</div></div>
+          </div>
+          <div class="content-chevron">▼</div>
+        </div>
+        <div class="content-body">
+          <div class="content-section"><div class="content-section-label">O que fotografar</div><p>Foto sua com o cliente na entrega das chaves ou em qualquer momento marcante. Se o cliente não quiser aparecer, use só as chaves ou o imóvel.</p></div>
+          <div class="content-section"><div class="content-section-label">Exemplo de copy</div><div class="copy-box">[Nome do cliente] me chamou [contexto breve: buscando apartamento pra investir / pra temporada / pra morar].
+
+Foram [tempo/número de visitas] até encontrar o certo. E quando encontrou — a expressão dele disse tudo.
+
+Não tem recompensa maior do que essa.
+
+Obrigada pela confiança, [nome]. Que seja o primeiro de muitos! 🙏
+
+Se você também está buscando, me chama. 📩</div></div>
+          <div class="content-section"><div class="content-section-label">Hashtags</div><div class="hashtag-box">#chavesdoimovel #imoveisbc #corretoradeimoveis #balneariocamboriu #clientesatisfeito #realizacoes</div></div>
+        </div>
+      </div>
+
+      <div class="content-card">
+        <div class="content-card-header" onclick="toggleCard(this)">
+          <div class="content-card-header-left">
+            <div class="content-card-num">13</div>
+            <div><div class="content-card-title">Alugar ou comprar?</div><div class="content-card-sub">Educação imobiliária</div></div>
+          </div>
+          <div class="content-chevron">▼</div>
+        </div>
+        <div class="content-body">
+          <div class="content-section"><div class="content-section-label">Exemplo de copy</div><div class="copy-box">Essa é uma das perguntas que mais recebo. E a resposta honesta é: depende.
+
+Faz mais sentido alugar quando:
+→ Você ainda está decidindo onde quer morar
+→ Está em transição de cidade ou emprego
+→ Quer flexibilidade por enquanto
+
+Faz mais sentido comprar quando:
+→ Você tem estabilidade e quer parar de pagar aluguel
+→ Quer construir patrimônio
+→ Está pensando em longo prazo
+
+Nenhuma resposta é errada. O certo é entender o seu momento.
+
+Quer conversar sobre o seu caso? Me chama. Sem compromisso. 📩</div></div>
+          <div class="content-section"><div class="content-section-label">Hashtags</div><div class="hashtag-box">#alugaroucomprar #dicadeimovel #imoveisbc #corretoradeimoveis #balneariocamboriu #educacaoimobiliaria</div></div>
+        </div>
+      </div>
+
+      <div class="content-card">
+        <div class="content-card-header" onclick="toggleCard(this)">
+          <div class="content-card-header-left">
+            <div class="content-card-num">14 & 15</div>
+            <div><div class="content-card-title">Mais conteúdos de foto</div><div class="content-card-sub">Suas chaves + Balanço do mês</div></div>
+          </div>
+          <div class="content-chevron">▼</div>
+        </div>
+        <div class="content-body">
+          <p style="font-size:13px;color:var(--text-muted);line-height:1.8;margin-bottom:16px;"><strong style="color:var(--gold);">Foto 14 — Imóvel de venda especial:</strong> Use o modelo do Canva. Foto impactante + dados + copy que posiciona como oportunidade de investimento. Ideal quando entrar imóvel especial na carteira.</p>
+          <p style="font-size:13px;color:var(--text-muted);line-height:1.8;"><strong style="color:var(--gold);">Foto 15 — Balanço do mês:</strong> Foto sua sorrindo. Compartilhe o que aconteceu: visitas, fechamentos, momentos marcantes. Transparência e movimento geram confiança. Feche com CTA de indicação.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- REELS -->
+    <div id="reels" class="idea-panel">
+
+      <div class="content-card">
+        <div class="content-card-header" onclick="toggleCard(this)">
+          <div class="content-card-header-left">
+            <div class="content-card-num">01</div>
+            <div><div class="content-card-title">Apresentação da corretora</div><div class="content-card-sub">Quem é Salete em 30 segundos</div></div>
+          </div>
+          <div class="content-chevron">▼</div>
+        </div>
+        <div class="content-body">
+          <div class="content-section"><div class="content-section-label">Como gravar</div><p>Você de frente pra câmera, em ambiente clean com boa iluminação. Fale olhando pro celular como se estivesse numa conversa natural. Pode sentar ou ficar em pé.</p></div>
+          <div class="content-section"><div class="content-section-label">Roteiro completo</div><div class="copy-box">"Oi, me chamo Salete Souza, sou corretora de imóveis em Balneário Camboriú. Atuo em toda a região — Balneário, Itajaí, Porto Belo, Itapema. Trabalho com temporada, locação e venda. Se você está buscando imóvel no litoral catarinense, me chama no WhatsApp ou me segue aqui. Tenho as melhores opções esperando por você."</div></div>
+          <div class="content-section"><div class="content-section-label">Dica de gravação</div><p>Grave em casa ou no escritório com janela ao fundo. Roupa arrumada, fundo clean. Use legenda automática do Instagram.</p></div>
+          <div class="content-section"><div class="content-section-label">Copy do post</div><div class="copy-box">Me apresentando pra quem ainda não me conhece 👋 Sou corretora em BC e região — temporada, locação e venda. Me chama! 47 9 99620472</div></div>
+          <div class="content-section"><div class="content-section-label">Hashtags</div><div class="hashtag-box">#corretoradeimoveis #balneariocamboriu #imoveisbc #imobiliariabc #temporadabc</div></div>
+        </div>
+      </div>
+
+      <div class="content-card">
+        <div class="content-card-header" onclick="toggleCard(this)">
+          <div class="content-card-header-left">
+            <div class="content-card-num">02</div>
+            <div><div class="content-card-title">Tour de imóvel</div><div class="content-card-sub">Tour pelo apartamento disponível</div></div>
+          </div>
+          <div class="content-chevron">▼</div>
+        </div>
+        <div class="content-body">
+          <div class="content-section"><div class="content-section-label">Como gravar</div><p>Entre no imóvel e grave andando por ele — sala, quartos, banheiro, varanda. Fale enquanto caminha, apontando os detalhes. Não precisa de roteiro decorado — pode ser espontâneo.</p></div>
+          <div class="content-section"><div class="content-section-label">Roteiro de base</div><div class="copy-box">"Vem comigo! Vou te mostrar esse apartamento que entrou na carteira essa semana. Olha a sala — [detalhe]. Aqui os quartos — [detalhe]. E essa varanda... [detalhe/vista]. Disponível para [tipo]. Me chama pra mais informações!"</div></div>
+          <div class="content-section"><div class="content-section-label">Dica de gravação</div><p>Grave horizontal para aproveitar os ambientes. Abra todas as janelas antes pra ter luz natural. Fale em tom de conversa, não de apresentação formal.</p></div>
+          <div class="content-section"><div class="content-section-label">Hashtags</div><div class="hashtag-box">#tourpeloimovel #imoveisbc #apartamentobc #balneariocamboriu #temporadabc #corretoradeimoveis</div></div>
+        </div>
+      </div>
+
+      <div class="content-card">
+        <div class="content-card-header" onclick="toggleCard(this)">
+          <div class="content-card-header-left">
+            <div class="content-card-num">03</div>
+            <div><div class="content-card-title">3 erros de quem aluga temporada</div><div class="content-card-sub">Não cometa esses erros</div></div>
+          </div>
+          <div class="content-chevron">▼</div>
+        </div>
+        <div class="content-body">
+          <div class="content-section"><div class="content-section-label">Como gravar</div><p>Você de frente pra câmera. Levante os dedos contando os erros enquanto fala. Tom direto e rápido — máximo 45 segundos.</p></div>
+          <div class="content-section"><div class="content-section-label">Roteiro completo</div><div class="copy-box">"3 erros que as pessoas cometem ao alugar imóvel de temporada em BC. Erro 1: esperar demais. Os melhores imóveis somem com meses de antecedência. Erro 2: não verificar o que está incluso no valor. Taxas escondidas aparecem na hora do pagamento. Erro 3: alugar sem corretora e acabar no imóvel errado. Evita esses três e sua temporada vai ser muito melhor. Qualquer dúvida, me chama!"</div></div>
+          <div class="content-section"><div class="content-section-label">Hashtags</div><div class="hashtag-box">#temporadabc #errosdeimovel #balneariocamboriu #dicadeimovel #corretoradeimoveis #imoveistemporada</div></div>
+        </div>
+      </div>
+
+      <div class="content-card">
+        <div class="content-card-header" onclick="toggleCard(this)">
+          <div class="content-card-header-left">
+            <div class="content-card-num">04</div>
+            <div><div class="content-card-title">Por que investir em BC</div><div class="content-card-sub">BC ainda vale a pena para investimento?</div></div>
+          </div>
+          <div class="content-chevron">▼</div>
+        </div>
+        <div class="content-body">
+          <div class="content-section"><div class="content-section-label">Como gravar</div><p>Você falando de frente pra câmera com confiança. Tom de especialista dando uma análise real. Se possível, grave com a orla ou os prédios de BC ao fundo.</p></div>
+          <div class="content-section"><div class="content-section-label">Roteiro completo</div><div class="copy-box">"Balneário Camboriú é uma das cidades com maior valorização imobiliária do Brasil nos últimos anos. O metro quadrado aqui compete com São Paulo e Rio — mas a demanda por temporada é gigante. Isso significa que você pode comprar um imóvel e rentabilizar com locação temporada enquanto o imóvel valoriza. Não é especulação — é realidade do mercado. Quer saber como começar? Me chama."</div></div>
+          <div class="content-section"><div class="content-section-label">Hashtags</div><div class="hashtag-box">#investimentoimobiliario #balneariocamboriu #imoveisbc #corretoradeimoveis #mercadoimobiliario</div></div>
+        </div>
+      </div>
+
+      <div class="content-card">
+        <div class="content-card-header" onclick="toggleCard(this)">
+          <div class="content-card-header-left">
+            <div class="content-card-num">05</div>
+            <div><div class="content-card-title">Bastidores de um dia de visitas</div><div class="content-card-sub">Como é um dia real com corretora</div></div>
+          </div>
+          <div class="content-chevron">▼</div>
+        </div>
+        <div class="content-body">
+          <div class="content-section"><div class="content-section-label">Como gravar</div><p>Grave pequenos clipes ao longo de um dia de visitas: você no carro, chegando no prédio, mostrando o imóvel, saindo. Junte tudo num vídeo de 30 a 45 segundos.</p></div>
+          <div class="content-section"><div class="content-section-label">Texto na tela (voz over)</div><div class="copy-box">7h — checando a agenda.
+9h — primeiro imóvel.
+11h — segundo imóvel na região.
+14h — reunião com cliente.
+17h — proposta enviada.
+Esse é o bastidor que ninguém vê.
+Sendo corretora em BC.</div></div>
+          <div class="content-section"><div class="content-section-label">Dica</div><p>Não precisa ser perfeito — é a autenticidade que engaja. Coloca uma música suave pelo próprio Instagram.</p></div>
+          <div class="content-section"><div class="content-section-label">Hashtags</div><div class="hashtag-box">#bastidores #corretoradeimoveis #rotinacorretora #imoveisbc #balneariocamboriu #trabalhonolitoral</div></div>
+        </div>
+      </div>
+
+      <div class="content-card">
+        <div class="content-card-header" onclick="toggleCard(this)">
+          <div class="content-card-header-left">
+            <div class="content-card-num">06</div>
+            <div><div class="content-card-title">5 perguntas antes de fechar um aluguel</div><div class="content-card-sub">Educação imobiliária</div></div>
+          </div>
+          <div class="content-chevron">▼</div>
+        </div>
+        <div class="content-body">
+          <div class="content-section"><div class="content-section-label">Roteiro completo</div><div class="copy-box">"Antes de assinar qualquer contrato de aluguel, pergunta isso:
+1 — O que está incluso no valor? Condomínio, IPTU e água às vezes ficam fora.
+2 — Qual a política de cancelamento?
+3 — Como é feita a vistoria de entrada e saída?
+4 — Tem caução ou garantia? Quanto?
+5 — Quem é responsável por pequenos reparos durante a estadia?
+Anotou? Qualquer dúvida me chama — é pra isso que eu estou aqui."</div></div>
+          <div class="content-section"><div class="content-section-label">Copy do post</div><div class="copy-box">Salva esse vídeo antes de fechar qualquer aluguel 📌 Me chama se precisar de ajuda! 47 9 99620472</div></div>
+          <div class="content-section"><div class="content-section-label">Hashtags</div><div class="hashtag-box">#dicadeimovel #aluguel #corretoradeimoveis #balneariocamboriu #imoveisbc #temporadabc</div></div>
+        </div>
+      </div>
+
+      <div class="content-card">
+        <div class="content-card-header" onclick="toggleCard(this)">
+          <div class="content-card-header-left">
+            <div class="content-card-num">07 – 15</div>
+            <div><div class="content-card-title">Mais 9 Reels</div><div class="content-card-sub">BC pelos olhos de quem mora lá + conversão</div></div>
+          </div>
+          <div class="content-chevron">▼</div>
+        </div>
+        <div class="content-body">
+          <p style="font-size:13px;color:var(--text-muted);line-height:1.9;">
+            <strong style="color:var(--gold);">Reel 07 — BC pela perspectiva da moradora:</strong> Grave clipes da cidade em movimento — orla, prédios, pôr do sol. Texto na tela: "Moro em BC. E tem coisas que só quem mora aqui sabe."<br><br>
+            <strong style="color:var(--gold);">Reel 08 — Imóvel de destaque com narração:</strong> Tour pausado e narrado por você. Fale naturalmente sobre cada detalhe enquanto filma.<br><br>
+            <strong style="color:var(--gold);">Reel 09 — Mitos do mercado imobiliário:</strong> "Vou desmentir uma coisa: precisa ter muito dinheiro para comprar imóvel." — Desfaça esse mito de forma direta e acolhedora.<br><br>
+            <strong style="color:var(--gold);">Reel 10 — Visita surpresa a imóvel incrível:</strong> Reação genuína ao entrar no imóvel. Quanto mais real, melhor.<br><br>
+            <strong style="color:var(--gold);">Reel 11 — Passo a passo para alugar temporada:</strong> 4 passos simples do primeiro contato até a reserva feita.<br><br>
+            <strong style="color:var(--gold);">Reel 12 — Você respondendo pergunta real:</strong> Pegue uma dúvida do WhatsApp e responda em vídeo. "Essa semana um cliente me perguntou..."<br><br>
+            <strong style="color:var(--gold);">Reel 13 — Por que BC atrai investidores:</strong> Tom de autoridade. Se possível, grave com visual urbano de BC ao fundo.<br><br>
+            <strong style="color:var(--gold);">Reel 14 — Entrega de chaves:</strong> Momento genuíno com cliente (com autorização). Curto e emocional.<br><br>
+            <strong style="color:var(--gold);">Reel 15 — CTA direto (conversão):</strong> "Se você está pensando em comprar, alugar ou investir — e ainda não me chamou — o que está esperando?" Tom íntimo, olho na câmera. Este é o reel mais importante de toda a lista.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SEÇÃO 4 — ARTES EDITÁVEIS
+═══════════════════════════════════════════════ -->
+<section id="artes" class="section">
+  <div class="container">
+
+    <div class="section-header">
+      <span class="section-tag">04 · Entregáveis</span>
+      <h2 class="section-title">Artes Editáveis<br><em>no Canva</em></h2>
+      <p class="section-desc">Todos os modelos profissionais prontos para editar. Clique nos links para acessar cada arte diretamente no Canva — basta substituir as informações e publicar.</p>
+    </div>
+
+    <div class="artes-intro">
+      <p>Salete, abaixo estão todos os seus modelos editáveis. Para usar cada um, basta clicar no link, fazer uma cópia no seu Canva e editar com os dados do imóvel — foto, valores e localização. Todos seguem a sua identidade visual (preto e dourado).</p>
+      <p>💡 <strong>Dica:</strong> Salve todos esses links nos seus Favoritos do celular para acessar sempre que precisar publicar.</p>
+    </div>
+
+    <!-- LINKS CANVA -->
+    <div class="section-header" style="margin-bottom:20px;">
+      <span class="section-tag">Links dos modelos editáveis</span>
+    </div>
+
+    <div class="links-grid">
+      <a href="https://canva.link/las3l4zosssxszg" target="_blank" class="link-card">
+        <div class="link-icon">📸</div>
+        <div class="link-info">
+          <div class="link-label">Post Feed</div>
+          <div class="link-name">Post Estático de Imóvel</div>
+        </div>
+      </a>
+      <a href="https://canva.link/ravrox4b76wxzft" target="_blank" class="link-card">
+        <div class="link-icon">🔄</div>
+        <div class="link-info">
+          <div class="link-label">Carrossel</div>
+          <div class="link-name">Post Carrossel de Venda</div>
+        </div>
+      </a>
+      <a href="https://canva.link/lkt7tpg3137zp2z" target="_blank" class="link-card">
+        <div class="link-icon">⭐</div>
+        <div class="link-info">
+          <div class="link-label">Prova Social</div>
+          <div class="link-name">Post de Depoimento</div>
+        </div>
+      </a>
+      <a href="https://canva.link/tk641ua1ctgameh" target="_blank" class="link-card">
+        <div class="link-icon">🎬</div>
+        <div class="link-info">
+          <div class="link-label">Capa Reels</div>
+          <div class="link-name">Capa para Reels</div>
+        </div>
+      </a>
+      <a href="https://canva.link/kdgy0468w59lomt" target="_blank" class="link-card">
+        <div class="link-icon">📱</div>
+        <div class="link-info">
+          <div class="link-label">Story</div>
+          <div class="link-name">Story de Venda</div>
+        </div>
+      </a>
+      <a href="https://canva.link/nz9nvh8oyh0haag" target="_blank" class="link-card">
+        <div class="link-icon">🏆</div>
+        <div class="link-info">
+          <div class="link-label">Destaques</div>
+          <div class="link-name">Capas de Destaques (6 modelos)</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- COMO USAR OS DESTAQUES -->
+    <div class="section-header" style="margin-bottom:20px;">
+      <span class="section-tag">Capas de Destaques — Como aplicar</span>
+    </div>
+
+    <div class="intro-card" style="margin-bottom:24px;">
+      <p>As 6 capas abaixo foram criadas na identidade bege e dourado da sua marca. Para aplicar: salve cada imagem no seu celular → vá até o Instagram → crie ou edite o destaque → escolha a imagem como capa.</p>
+    </div>
+
+    <div class="highlights-grid">
+      <div class="highlight-item">
+        <div class="highlight-img-wrap">
+          <img src="3.png" alt="Destaque Imóveis" onerror="this.style.background='#1a1a1a'">
+        </div>
+        <div class="highlight-name">🏠 Imóveis</div>
+      </div>
+      <div class="highlight-item">
+        <div class="highlight-img-wrap">
+          <img src="2.png" alt="Destaque Temporada" onerror="this.style.background='#1a1a1a'">
+        </div>
+        <div class="highlight-name">🏢 Temporada</div>
+      </div>
+      <div class="highlight-item">
+        <div class="highlight-img-wrap">
+          <img src="4.png" alt="Destaque Regiões" onerror="this.style.background='#1a1a1a'">
+        </div>
+        <div class="highlight-name">📍 Regiões</div>
+      </div>
+      <div class="highlight-item">
+        <div class="highlight-img-wrap">
+          <img src="5.png" alt="Destaque Salete" onerror="this.style.background='#1a1a1a'">
+        </div>
+        <div class="highlight-name">🌟 Salete</div>
+      </div>
+      <div class="highlight-item">
+        <div class="highlight-img-wrap">
+          <img src="1.png" alt="Destaque Depoimentos" onerror="this.style.background='#1a1a1a'">
+        </div>
+        <div class="highlight-name">💬 Depoimentos</div>
+      </div>
+      <div class="highlight-item">
+        <div class="highlight-img-wrap">
+          <img src="6.png" alt="Destaque Contato" onerror="this.style.background='#1a1a1a'">
+        </div>
+        <div class="highlight-name">📞 Contato</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ANTES E DEPOIS -->
+    <div class="section-header" style="margin-bottom:20px;">
+      <span class="section-tag">Antes e Depois — Perfil do Instagram</span>
+    </div>
+
+    <div class="before-after">
+      <div class="ba-panel">
+        <div class="ba-label before-label">ANTES — Perfil atual</div>
+        <img src="1776872981916_image.png" alt="Perfil antes" class="ba-img" onerror="this.style.display='none'">
+        <div class="ba-bio-panel" style="margin-top:10px;">
+          <div class="section-tag" style="margin-bottom:8px;">Bio atual</div>
+          <div class="ba-bio-text" style="color:var(--text-muted);">🏠 Salete Souza Imóveis
+📲 Atendimento direto
+📍 Balneário Camboriú | Região
+🔑 Locação | Venda | Temporada
+🏛️ CRECI 30.976 | 11.173J
+👇 Fale comigo</div>
+        </div>
+      </div>
+      <div class="ba-panel">
+        <div class="ba-label after-label">DEPOIS — Com identidade aplicada</div>
+        <div style="background:var(--black-card);border:1px solid var(--black-border);padding:20px;margin-bottom:10px;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+            <div style="width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-light));display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">👑</div>
+            <div>
+              <div style="font-size:13px;font-weight:600;color:#fff;">saletesouzaimoveis</div>
+              <div style="font-size:11px;color:var(--text-muted);">1.200 posts · 2.924 seguidores</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:8px;margin-bottom:16px;overflow-x:auto;padding-bottom:4px;">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:52px;">
+              <div style="width:52px;height:52px;border-radius:50%;border:2px solid var(--gold);background:var(--black-card);overflow:hidden;"><img src="3.png" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
+              <span style="font-size:9px;color:var(--text-muted);">Imóveis</span>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:52px;">
+              <div style="width:52px;height:52px;border-radius:50%;border:2px solid var(--gold);background:var(--black-card);overflow:hidden;"><img src="2.png" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
+              <span style="font-size:9px;color:var(--text-muted);">Temporada</span>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:52px;">
+              <div style="width:52px;height:52px;border-radius:50%;border:2px solid var(--gold);background:var(--black-card);overflow:hidden;"><img src="4.png" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
+              <span style="font-size:9px;color:var(--text-muted);">Regiões</span>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:52px;">
+              <div style="width:52px;height:52px;border-radius:50%;border:2px solid var(--gold);background:var(--black-card);overflow:hidden;"><img src="5.png" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
+              <span style="font-size:9px;color:var(--text-muted);">Salete</span>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:52px;">
+              <div style="width:52px;height:52px;border-radius:50%;border:2px solid var(--gold);background:var(--black-card);overflow:hidden;"><img src="1.png" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
+              <span style="font-size:9px;color:var(--text-muted);">Depoimt.</span>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:52px;">
+              <div style="width:52px;height:52px;border-radius:50%;border:2px solid var(--gold);background:var(--black-card);overflow:hidden;"><img src="6.png" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
+              <span style="font-size:9px;color:var(--text-muted);">Contato</span>
+            </div>
+          </div>
+          <div style="font-size:11px;color:var(--gold);font-weight:600;margin-bottom:4px;">✦ DESTAQUES PADRONIZADOS</div>
+          <div style="font-size:11px;color:var(--text-muted);">Todos seguindo a identidade dourado + bege da sua marca</div>
+        </div>
+        <div class="ba-bio-panel">
+          <div class="section-tag" style="margin-bottom:8px;">Nova bio sugerida</div>
+          <div class="ba-bio-text" style="color:var(--gold-light);">Salete Souza Imóveis | BC 🏙️
+Corretora especialista em Balneário e região
+Locação temporada • Venda • Lançamentos
+CRECI 30.976 | Atendimento direto 👇</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- PREVIEW DAS ARTES -->
+    <div class="section-header" style="margin-bottom:20px;">
+      <span class="section-tag">Preview das Artes — Feed e Stories</span>
+    </div>
+
+    <div class="gallery-label">Posts de Feed</div>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="Post_Feed_Salete_Souza.png" alt="Post Feed" onerror="this.style.background='#1a1a1a'">
+        <div class="gallery-caption">Post de Imóvel</div>
+      </div>
+      <div class="gallery-item">
+        <img src="Post_Feed_Depoimentos_-_Salete_Souza.png" alt="Post Depoimentos" onerror="this.style.background='#1a1a1a'">
+        <div class="gallery-caption">Prova Social</div>
+      </div>
+      <div class="gallery-item">
+        <img src="CARROSSEL_1.png" alt="Carrossel 1" onerror="this.style.background='#1a1a1a'">
+        <div class="gallery-caption">Carrossel — Slide 1</div>
+      </div>
+      <div class="gallery-item">
+        <img src="CARROSSEL_2.png" alt="Carrossel 2" onerror="this.style.background='#1a1a1a'">
+        <div class="gallery-caption">Carrossel — Slide 2</div>
+      </div>
+      <div class="gallery-item">
+        <img src="CARROSSEL_3.png" alt="Carrossel 3" onerror="this.style.background='#1a1a1a'">
+        <div class="gallery-caption">Carrossel — Slide 3</div>
+      </div>
+      <div class="gallery-item">
+        <img src="CARROSSEL_4.png" alt="Carrossel 4" onerror="this.style.background='#1a1a1a'">
+        <div class="gallery-caption">Carrossel — Slide 4</div>
+      </div>
+    </div>
+
+    <div class="gallery-label">Stories e Reels</div>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="Story_Salete_Souza.png" alt="Story" onerror="this.style.background='#1a1a1a'">
+        <div class="gallery-caption">Story de Venda</div>
+      </div>
+      <div class="gallery-item">
+        <img src="Capa_para_Reels_-_Salete_Souza.png" alt="Capa Reels" onerror="this.style.background='#1a1a1a'">
+        <div class="gallery-caption">Capa para Reels</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="hero-ornament" style="margin-bottom:16px;">
+    <div class="hero-ornament-line"></div>
+    <div class="hero-ornament-diamond"></div>
+    <div class="hero-ornament-line"></div>
+  </div>
+  <div class="footer-name">Salete Souza Imóveis</div>
+  <div class="footer-sub">CRECI 30.976 · Balneário Camboriú · 47 9 99620472</div>
+</div>
+
+<script>
+  function showSection(id, btn) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function toggleDay(header) {
+    const item = header.parentElement;
+    item.classList.toggle('open');
+  }
+
+  function toggleCard(header) {
+    const card = header.parentElement;
+    card.classList.toggle('open');
+  }
+
+  function showIdeaTab(id, btn) {
+    document.querySelectorAll('.idea-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.idea-tab').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+  }
+</script>
+</body>
+</html>
